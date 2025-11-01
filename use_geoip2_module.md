@@ -8,11 +8,9 @@
 
 `sudo mkdir -p /usr/share/GeoIP && cd /usr/share/GeoIP`
 
-`sudo curl -L -o dbip-country-lite-$(date +%Y-%m).mmdb.gz \
-  https://download.db-ip.com/free/dbip-country-lite-$(date +%Y-%m).mmdb.gz`
+`sudo curl -L -o dbip-country-lite-$(date +%Y-%m).mmdb.gz https://download.db-ip.com/free/dbip-country-lite-$(date +%Y-%m).mmdb.gz`
   
-`sudo curl -L -o dbip-city-lite-$(date +%Y-%m).mmdb.gz \
-  https://download.db-ip.com/free/dbip-city-lite-$(date +%Y-%m).mmdb.gz`
+`sudo curl -L -o dbip-city-lite-$(date +%Y-%m).mmdb.gz https://download.db-ip.com/free/dbip-city-lite-$(date +%Y-%m).mmdb.gz`
 
 `sudo gunzip -f dbip-country-lite-*.mmdb.gz`
 
@@ -29,12 +27,12 @@
 
 
 ## 3. config Nginx
-`vim /etc/nginx/modules-enabled/50-mod-http-geoip2.conf`
+`sudo vim /etc/nginx/modules-enabled/50-mod-http-geoip2.conf`
 ```nginx
 load_module modules/ngx_http_geoip2_module.so;
 ```
 
-`vim /etc/nginx/conf.d/geoip2.conf`
+`sudo vim /etc/nginx/conf.d/geoip2.conf`
 ```nginx
 geoip2 /usr/share/GeoIP/dbip-country-lite.mmdb {
     auto_reload 5m;
@@ -68,7 +66,7 @@ access_log /var/log/nginx/access_geo.log geo;
 `tail -f /var/log/nginx/access_geo.log`
 
 ## 6. final step:
-`vim /usr/local/bin/update-dbip.sh`
+`sudo vim /usr/local/bin/update-dbip.sh`
 ```bash
 #!/usr/bin/env bash
 set -euo pipefail
